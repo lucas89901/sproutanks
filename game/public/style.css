@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 64px 0;
+  background-color: rgba(255, 255, 255, 0.87);
+}
+
+#app {
+  margin: 16px auto;
+  width: 99vw;
+  /*height: 100vh;*/
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+#pixi-container {
+  /*margin-top: 5vh;*/
+  /*width: 1200px;*/
+  /*height: 640px;*/
+  width: 1232px;
+  height: 672px;
+}
+
+table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  margin: auto;
+  font-variant: tabular-nums;
+}
+
+th {
+  font-weight: bold;
+}
+
+th,
+td {
+  padding: 6px 12px;
+  border: 2px solid #ccc;
+  text-align: center;
+}

@@ -1,0 +1,7 @@
+services:
+  agent:
+    build: .
+    ports:
+      - 18080:18080
+    stdin_open: true
+    tty: true
