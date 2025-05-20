@@ -4,7 +4,7 @@ import {Tank} from './tank';
 (async () => {
   await Assets.load([
     {
-      src: '/assets/bunny.png',
+      src: 'assets/bunny.png',
       alias: 'bullet',
     },
   ]);

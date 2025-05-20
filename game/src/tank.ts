@@ -9,15 +9,15 @@ import {update as updateAgent, ActionType, Direction} from './input/agent';
 (async () => {
   await Assets.load([
     {
-      src: '/assets/tank_blue1.png',
+      src: 'assets/tank_blue1.png',
       alias: 'tank_blue1',
     },
     {
-      src: '/assets/tank_blue3.png',
+      src: 'assets/tank_blue3.png',
       alias: 'tank_blue3',
     },
     {
-      src: '/assets/tank_red1.png',
+      src: 'assets/tank_red1.png',
       alias: 'tank_red1',
     },
   ]);
