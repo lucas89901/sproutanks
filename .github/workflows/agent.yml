@@ -1,0 +1,26 @@
+name: Zip agent starter code
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - agent/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create zip
+        run: zip -r sproutanks_agent.zip agent
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sproutanks_agent
+          path: sproutanks_agent.zip
