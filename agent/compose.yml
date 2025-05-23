@@ -1,6 +1,7 @@
 services:
   agent:
     build: .
+    pull_policy: build
     ports:
       - 18080:18080
     stdin_open: true
