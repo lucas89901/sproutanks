@@ -28,7 +28,7 @@ function getRandomInt(max: number): number {
 (async () => {
   await Assets.load([
     {
-      src: 'assets/wall.jpg',
+      src: 'assets/wall.png',
       alias: 'wall',
     },
   ]);
