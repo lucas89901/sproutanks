@@ -13,6 +13,7 @@ import {Bullet} from '../bullet';
 import {Tank, PlayerTank, EnemyTank} from '../tank';
 import {addResult, getMode} from '../game';
 import {init as initAgent} from '../input/agent';
+import {randomLevel} from '../random';
 
 export const squareSize = 80;
 export const gameCols = 15;
@@ -20,10 +21,6 @@ export const gameRows = 8;
 export const gameWidth = squareSize * gameCols;
 export const gameHeight = squareSize * gameRows;
 const borderWidth = 16;
-
-function getRandomInt(max: number): number {
-  return Math.floor(Math.random() * max);
-}
 
 (async () => {
   await Assets.load([
@@ -40,7 +37,7 @@ export type Level = {
   walls: PointData[];
 };
 
-const levels: {[key: string]: Level} = {
+const staticLevels: {[key: string]: Level} = {
   level0: {
     playerTank: {x: 3, y: 1},
     enemyTanks: [{x: 10, y: 3}],
@@ -236,12 +233,6 @@ const levels: {[key: string]: Level} = {
       {x: 11, y: 2},
     ],
   },
-  // To be randomly generated.
-  level5: {
-    playerTank: {x: -1, y: -1},
-    enemyTanks: [],
-    walls: [],
-  },
 };
 
 export function gridToWorld(pos: number, anchor: number = 0.5): number {
@@ -324,7 +315,12 @@ export class LevelScene implements Scene {
   constructor(levelName: string) {
     this.container = new Container();
 
-    const level = levels[levelName];
+    let level: Level;
+    if (levelName === 'level5') {
+      level = randomLevel();
+    } else {
+      level = staticLevels[levelName];
+    }
     this.levelName = levelName;
 
     const borderWalls = new Graphics({
@@ -361,24 +357,6 @@ export class LevelScene implements Scene {
       '#cb9565'
     );
     this.gameArea.addChild(bg);
-
-    // Generate enemy tanks randomly for level5.
-    if (levelName === 'level5') {
-      level.enemyTanks = [];
-      level.playerTank.x = getRandomInt(gameCols);
-      level.playerTank.y = getRandomInt(gameRows);
-      for (let x = 0; x < gameCols; x++) {
-        for (let y = 0; y < gameRows; y++) {
-          if (
-            level.playerTank.x !== x &&
-            level.playerTank.y !== y &&
-            Math.random() < 0.2
-          ) {
-            level.enemyTanks.push({x, y});
-          }
-        }
-      }
-    }
 
     this.walls = level.walls.map((wall) =>
       new Graphics({
