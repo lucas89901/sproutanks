@@ -1,8 +1,9 @@
 import {Container, Graphics, Text} from 'pixi.js';
-import {ButtonContainer, CheckBox, RadioGroup} from '@pixi/ui';
+import {ButtonContainer, CheckBox, Input, RadioGroup} from '@pixi/ui';
 
 import {Scene, switchTo} from '.';
 import {setMode} from '../game';
+import {setSeed} from '../random';
 import {gameWidth} from '../scenes/level';
 
 const buttonHeight = 50;
@@ -146,6 +147,46 @@ export class MenuScene implements Scene {
       setMode(selectedVal);
     });
     modeSelector.addChild(modeRadioGroup);
+
+    const seedInputContainer = new Container({
+      parent: this.container,
+      x: 200,
+      y: 450,
+    });
+
+    new Text({
+      parent: seedInputContainer,
+      x: 50,
+      y: 0,
+      anchor: 0.5,
+      text: 'Random Seed',
+      style: {
+        fontSize: 20,
+        fill: '#ffffff',
+        fontFamily: 'Verdana',
+        fontWeight: 'bold',
+        align: 'center',
+      },
+    });
+    const seedInput = new Input({
+      bg: new Graphics().roundRect(0, 0, 250, 40, 10).stroke({
+        color: '#ffffff',
+        width: 2,
+      }),
+      padding: 10,
+      placeholder: 'Enter seed...',
+      textStyle: {
+        fontSize: 16,
+        fill: '#ffffff',
+        fontFamily: 'Verdana',
+        fontWeight: 'bold',
+      },
+    });
+    seedInput.position.set(-75, 20);
+    seedInputContainer.addChild(seedInput);
+    seedInput.onChange.connect((text: string) => {
+      setSeed(text);
+    });
 
     const sep = 75;
     this.container.addChild(

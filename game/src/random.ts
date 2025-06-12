@@ -2,7 +2,20 @@ import {xoroshiro128plus, unsafeUniformIntDistribution} from 'pure-rand';
 import {Level, gameCols, gameRows} from './scenes/level';
 
 let seed = Date.now() ^ (Math.random() * 0x100000000);
-const rng = xoroshiro128plus(seed);
+let rng = xoroshiro128plus(seed);
+
+export function setSeed(seedText: string): boolean {
+  const seedTextInt = parseInt(seedText, 10);
+  if (!isNaN(seedTextInt)) {
+    seed = seedTextInt;
+    rng = xoroshiro128plus(seed);
+    return true;
+  } else {
+    seed = Date.now() ^ (Math.random() * 0x100000000);
+    rng = xoroshiro128plus(seed);
+    return false;
+  }
+}
 
 export function randomInt(min: number, max: number): number {
   return unsafeUniformIntDistribution(min, max, rng);
