@@ -188,52 +188,57 @@ export class MenuScene implements Scene {
       setSeed(text);
     });
 
-    const sep = 75;
+    const buttonSep = 75;
+    const buttonBaseX = gameWidth / 2 - buttonWidth / 2 - 10;
+    const buttonBaseY = 250;
+    new Text({
+      parent: this.container,
+      x: buttonBaseX + buttonWidth / 2,
+      y: buttonBaseY - 50,
+      anchor: 0.5,
+      text: 'Static Levels',
+      style: {
+        fontSize: 20,
+        fill: '#ffffff',
+        fontFamily: 'Verdana',
+        fontWeight: 'bold',
+        align: 'center',
+      },
+    });
+    new Text({
+      parent: this.container,
+      x: buttonBaseX + buttonWidth / 2 + 250,
+      y: buttonBaseY - 50,
+      anchor: 0.5,
+      text: 'Random Levels',
+      style: {
+        fontSize: 20,
+        fill: '#ffffff',
+        fontFamily: 'Verdana',
+        fontWeight: 'bold',
+        align: 'center',
+      },
+    });
     this.container.addChild(
-      newButton(gameWidth / 2 - buttonWidth / 2 - 10, 200, 'Level 0', () => {
+      newButton(buttonBaseX, buttonBaseY, 'Level 0', () => {
         switchTo('level0');
       }),
-      newButton(
-        gameWidth / 2 - buttonWidth / 2 - 10,
-        200 + sep,
-        'Level 1',
-        () => {
-          switchTo('level1');
-        }
-      ),
-      newButton(
-        gameWidth / 2 - buttonWidth / 2 - 10,
-        200 + sep * 2,
-        'Level 2',
-        () => {
-          switchTo('level2');
-        }
-      ),
-      newButton(
-        gameWidth / 2 - buttonWidth / 2 - 10,
-        200 + sep * 3,
-        'Level 3',
-        () => {
-          switchTo('level3');
-        }
-      ),
-      newButton(
-        gameWidth / 2 - buttonWidth / 2 - 10,
-        200 + sep * 4,
-        'Level 4',
-        () => {
-          switchTo('level4');
-        }
-      ),
-      newButton(
-        gameWidth / 2 - buttonWidth / 2 - 10,
-        200 + sep * 5,
-        'Level 5',
-        () => {
-          switchTo('level5');
-        }
-      ),
-      newButton(gameWidth / 2 - buttonWidth / 2 + 200, 200, 'Level 6', () => {
+      newButton(buttonBaseX, buttonBaseY + buttonSep, 'Level 1', () => {
+        switchTo('level1');
+      }),
+      newButton(buttonBaseX, buttonBaseY + buttonSep * 2, 'Level 2', () => {
+        switchTo('level2');
+      }),
+      newButton(buttonBaseX, buttonBaseY + buttonSep * 3, 'Level 3', () => {
+        switchTo('level3');
+      }),
+      newButton(buttonBaseX, buttonBaseY + buttonSep * 4, 'Level 4', () => {
+        switchTo('level4');
+      }),
+      newButton(buttonBaseX + 250, buttonBaseY, 'Level 5', () => {
+        switchTo('level5');
+      }),
+      newButton(buttonBaseX + 250, buttonBaseY + buttonSep, 'Level 6', () => {
         switchTo('level6');
       })
     );
