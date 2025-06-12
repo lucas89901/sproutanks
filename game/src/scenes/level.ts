@@ -317,7 +317,9 @@ export class LevelScene implements Scene {
 
     let level: Level;
     if (levelName === 'level5') {
-      level = randomLevel();
+      level = randomLevel(false);
+    } else if (levelName === 'level6') {
+      level = randomLevel(true);
     } else {
       level = staticLevels[levelName];
     }

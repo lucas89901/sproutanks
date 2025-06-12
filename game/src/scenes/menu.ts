@@ -191,7 +191,10 @@ export class MenuScene implements Scene {
         () => {
           switchTo('level5');
         }
-      )
+      ),
+      newButton(gameWidth / 2 - buttonWidth / 2 + 200, 200, 'Level 6', () => {
+        switchTo('level6');
+      })
     );
   }
 }
