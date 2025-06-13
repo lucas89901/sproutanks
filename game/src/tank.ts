@@ -2,7 +2,13 @@ import {Assets, Sprite} from 'pixi.js';
 
 import {getMode} from './game';
 import {getCurrentLevelScene} from './scenes';
-import {gameWidth, gameHeight, squareSize} from './scenes/level';
+import {
+  gameWidth,
+  gameHeight,
+  gameCols,
+  gameRows,
+  squareSize,
+} from './scenes/level';
 import {isKeyDown, cursorX, cursorY} from './input/manual';
 import {update as updateAgent, ActionType, Direction} from './input/agent';
 
@@ -119,23 +125,48 @@ export class PlayerTank extends Tank {
         switch (action.type) {
           case ActionType.MOVE:
             ++this.movements;
+            let x2 = this.sprite.x;
+            let y2 = this.sprite.y;
             switch (action.direction) {
               case Direction.UP:
-                this.sprite.y -= squareSize;
+                y2 -= squareSize;
                 this.sprite.angle = -90;
                 break;
               case Direction.DOWN:
-                this.sprite.y += squareSize;
+                y2 += squareSize;
                 this.sprite.angle = 90;
                 break;
               case Direction.LEFT:
-                this.sprite.x -= squareSize;
+                x2 -= squareSize;
                 this.sprite.angle = 180;
                 break;
               case Direction.RIGHT:
-                this.sprite.x += squareSize;
+                x2 += squareSize;
                 this.sprite.angle = 0;
                 break;
+            }
+            if (
+              Math.floor(x2 / squareSize) >= 0 &&
+              Math.floor(x2 / squareSize) < gameCols &&
+              Math.floor(y2 / squareSize) >= 0 &&
+              Math.floor(y2 / squareSize) < gameRows &&
+              !getCurrentLevelScene()!.walls.some(
+                (wall) =>
+                  Math.floor(wall.x / squareSize) ===
+                    Math.floor(x2 / squareSize) &&
+                  Math.floor(wall.y / squareSize) ===
+                    Math.floor(y2 / squareSize)
+              ) &&
+              !getCurrentLevelScene()!.enemyTanks.some(
+                (tank) =>
+                  Math.floor(tank.sprite.x / squareSize) ===
+                    Math.floor(x2 / squareSize) &&
+                  Math.floor(tank.sprite.y / squareSize) ===
+                    Math.floor(y2 / squareSize)
+              )
+            ) {
+              this.sprite.x = x2;
+              this.sprite.y = y2;
             }
             break;
           case ActionType.ROTATE:
