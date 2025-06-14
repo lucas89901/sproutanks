@@ -3,6 +3,7 @@ import {Container} from 'pixi.js';
 import {app} from '../main';
 import {LevelScene} from './level';
 import {MenuScene} from './menu';
+import {setSeed} from '../random';
 
 export interface Scene {
   container: Container;
@@ -10,6 +11,10 @@ export interface Scene {
 
 let currentScene: Scene | null = null;
 export function switchTo(scene: string): void {
+  if (currentScene instanceof MenuScene) {
+    setSeed(currentScene.getSeedInputValue());
+  }
+
   if (currentScene) {
     currentScene.container.destroy({
       children: true,

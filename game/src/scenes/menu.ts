@@ -3,7 +3,6 @@ import {ButtonContainer, CheckBox, Input, RadioGroup} from '@pixi/ui';
 
 import {Scene, switchTo} from '.';
 import {setMode} from '../game';
-import {setSeed} from '../random';
 import {gameWidth} from '../scenes/level';
 
 const buttonHeight = 50;
@@ -68,6 +67,7 @@ function newButton(
 
 export class MenuScene implements Scene {
   container: Container;
+  seedInput: Input;
 
   constructor() {
     this.container = new Container();
@@ -168,7 +168,7 @@ export class MenuScene implements Scene {
         align: 'center',
       },
     });
-    const seedInput = new Input({
+    this.seedInput = new Input({
       bg: new Graphics().roundRect(0, 0, 250, 40, 10).stroke({
         color: '#ffffff',
         width: 2,
@@ -182,11 +182,8 @@ export class MenuScene implements Scene {
         fontWeight: 'bold',
       },
     });
-    seedInput.position.set(-75, 20);
-    seedInputContainer.addChild(seedInput);
-    seedInput.onChange.connect((text: string) => {
-      setSeed(text);
-    });
+    this.seedInput.position.set(-75, 20);
+    seedInputContainer.addChild(this.seedInput);
 
     const buttonSep = 75;
     const buttonBaseX = gameWidth / 2 - buttonWidth / 2 - 10;
@@ -242,5 +239,9 @@ export class MenuScene implements Scene {
         switchTo('level6');
       })
     );
+  }
+
+  getSeedInputValue(): string {
+    return this.seedInput.value;
   }
 }

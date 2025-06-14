@@ -1,8 +1,8 @@
-import {xoroshiro128plus, unsafeUniformIntDistribution} from 'pure-rand';
+import {xoroshiro128plus, unsafeUniformIntDistribution, RandomGenerator} from 'pure-rand';
 import {Level, gameCols, gameRows} from './scenes/level';
 
-let seed = Date.now() ^ (Math.random() * 0x100000000);
-let rng = xoroshiro128plus(seed);
+let seed: number;
+let rng: RandomGenerator;
 
 export function setSeed(seedText: string): boolean {
   const seedTextInt = parseInt(seedText, 10);
@@ -208,6 +208,5 @@ export function randomLevel(hasWalls: boolean): Level {
     if (level.enemyTanks.length >= 5) {
       return level;
     }
-    ++seed;
   }
 }
