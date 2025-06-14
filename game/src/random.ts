@@ -17,6 +17,10 @@ export function setSeed(seedText: string): boolean {
   }
 }
 
+export function getSeed(): number {
+  return seed;
+}
+
 export function randomInt(min: number, max: number): number {
   return unsafeUniformIntDistribution(min, max, rng);
 }

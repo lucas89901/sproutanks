@@ -13,13 +13,22 @@ export type Result = {
   movements: number;
   rotations: number;
   shots: number;
-  cost?: number;
+  cost?: number | 'N/A';
+  seed?: number | 'N/A';
 };
 
 const results: Result[] = [];
 export function addResult(result: Result): void {
-  result.cost = result.movements * 3 + result.rotations * 2 + result.shots;
+  if (result.mode === 'agent') {
+    result.cost = result.movements * 3 + result.rotations * 2 + result.shots;
+  } else {
+    result.cost = 'N/A';
+  }
+  if (parseInt(result.level[result.level.length - 1], 10) < 5) {
+    result.seed = 'N/A';
+  }
   results.push(result);
+
   document
     .getElementById('results')!
     .getElementsByTagName('tbody')![0].innerHTML += `
@@ -31,6 +40,7 @@ export function addResult(result: Result): void {
       <td>${result.rotations}</td>
       <td>${result.shots}</td>
       <td>${result.cost}</td>
+      <td>${result.seed}</td>
     </tr>`;
 }
 export function getResults(): Result[] {

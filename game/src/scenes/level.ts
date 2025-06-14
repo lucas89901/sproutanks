@@ -13,7 +13,7 @@ import {Bullet} from '../bullet';
 import {Tank, PlayerTank, EnemyTank} from '../tank';
 import {addResult, getMode} from '../game';
 import {init as initAgent} from '../input/agent';
-import {randomLevel} from '../random';
+import {randomLevel, getSeed} from '../random';
 
 export const squareSize = 80;
 export const gameCols = 15;
@@ -486,6 +486,7 @@ export class LevelScene implements Scene {
           movements: this.playerTank.movements,
           rotations: this.playerTank.rotations,
           shots: this.playerTank.shots,
+          seed: getSeed(),
         });
         switchTo('menu');
         return;
@@ -515,6 +516,7 @@ export class LevelScene implements Scene {
         movements: this.playerTank.movements,
         rotations: this.playerTank.rotations,
         shots: this.playerTank.shots,
+        seed: getSeed(),
       });
       switchTo('menu');
       return;
