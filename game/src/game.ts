@@ -10,9 +10,9 @@ export type Result = {
   level: string;
   result: 'win' | 'lose';
   mode: string;
-  movements: number;
-  rotations: number;
-  shots: number;
+  movements: number | 'N/A';
+  rotations: number | 'N/A';
+  shots: number | 'N/A';
   cost?: number | 'N/A';
   seed?: number | 'N/A';
 };
@@ -20,8 +20,14 @@ export type Result = {
 const results: Result[] = [];
 export function addResult(result: Result): void {
   if (result.mode === 'agent') {
-    result.cost = result.movements * 3 + result.rotations * 2 + result.shots;
+    result.cost =
+      (result.movements as number) * 3 +
+      (result.rotations as number) * 2 +
+      (result.shots as number);
   } else {
+    result.movements = 'N/A';
+    result.rotations = 'N/A';
+    result.shots = 'N/A';
     result.cost = 'N/A';
   }
   if (parseInt(result.level[result.level.length - 1], 10) < 5) {
