@@ -173,7 +173,14 @@ export function randomLevel(hasWalls: boolean): Level {
     if (hasWalls) {
       const walls = generateMazeWallsWilsons(gameCols, gameRows + 1);
       for (const wall of walls) {
-        level.walls.push(wall);
+        if (
+          wall.x >= 0 &&
+          wall.x < gameCols &&
+          wall.y >= 0 &&
+          wall.y < gameRows
+        ) {
+          level.walls.push(wall);
+        }
       }
     }
 
